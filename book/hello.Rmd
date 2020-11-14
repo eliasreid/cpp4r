@@ -74,7 +74,7 @@ For floating numbers, `f32` and `f64` correspond to `float` and `double`, respec
 
 ## Variables
 
-Like in Rust, creating a variable requires two steps, declaration and initialization. In C++, there are usually more than one syntax to do any task, and these two basic operations are no exception.
+Like in Rust, creating a variable requires two steps, declaration and initialization. In C++, there are many different ways to perform these steps.
 
 The traditional syntax for declaration and initialization is `<type> <var name> = <value>;`, and these two steps can be separated:
 
@@ -91,7 +91,9 @@ int a = 5.5;
 assert(a == 5);
 ```
 
-The value will be implicitly converted. Instead of giving a warning or simply disallowing this (recent compilers DO give a warning; see Figure \@ref(fig:equal)), the designers of C++ decided to invent another syntax for declaration and initialization, using curly braces:
+The value will be implicitly truncated to an integer, effectively erasing the decimal component (although recent compilers do provide a warning; see Figure \@ref(fig:equal)).
+
+An often preferred method of initialization is to use curly braces, as seen in the example below:
 
 ```c++
 int a{5};
@@ -101,7 +103,7 @@ int a{5};
 knitr::include_graphics("img/equal.png")
 ```
 
-If you try `int a{5.5};` with this syntax, the compiler will give an error and abort (Figure \@ref(fig:braces) ). In addition, you can't separate the two parts:
+If you try `int a{5.5};` with this syntax, the compiler will give an error and abort (Figure \@ref(fig:braces) ). In addition, you can't separate the two parts, thus enforcing that variables are not left uninitialized:
 
 ```c++
 // not allowed
@@ -111,6 +113,30 @@ a{5}
 
 ```{r braces, echo=FALSE, out_width="100%", fig.cap="When implicit conversion occurs, a decent modern C++ compiler will give a warning."}
 knitr::include_graphics("img/equal.png")
+```
+
+###`auto` vs `let`
+
+Another key difference with declaring / initializing variables is in how types are inferred. In C++, the type of a variable can be inferred by replacing the type name with `auto`:
+
+```c++
+//These lines are equivalent
+auto a = 5;
+int a = 5;
+```
+
+Unlike Rust's `let` keyword, a variable declared with `auto` MUST be initialized in the same statement - that is, you cannot declare the variable with `auto`, then have the compiler infer the type from an initialization in another statement. Example:
+
+```rust
+// Rust - valid, type of a will be inferred as f32
+let a;
+a = 10. as f64;
+```
+
+```c++
+// C++ - invalid, variable must be initialized and declared in the same statement
+auto a;
+a = 10.;
 ```
 
 ### Mutability
