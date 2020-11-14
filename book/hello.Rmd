@@ -19,7 +19,7 @@ A couple of things to note here:
 
 Every C++ executable (as opposed to library) must have a `main()` function that returns `int`. Returning `0` signifies that the program terminates without errors. The final `return 0;` statement can be omitted in the `main()` function.
 
-`#include` is a preprocessor. We'll meet more preprocessors in the future, for now just accept that they are "naive macros" that are "expanded" before the actual compilation.
+`#include` is a preprocessor directive. We'll learn more about the preprocessor in later chapters, for now just accept that preprocessor directives are "naive macros" that are "expanded" before the actual compilation.
 Here `#include` copies the content of file called `iostream`, which has tens of thousands lines, and pastes it here. Yes, it literally does so, and you can check this by running `g++ -E main.c`, which "expands" all preprocessor statements.
 
 `iostream` contains definitions of functions and objects such as `std::cout` and `std::endl`, which are used for IO manipulations. `cout` stands for "character output", and `endl` stands for "endline" (it appends `\n` and flushes the buffer). `<<` is the bitwise left shift operator, and the designers of C++ decided that overloading bitwise shift operators for `cout` and `cin` can make C++ look fancy from the beginning. That's why we need to learn yet another special syntax.
