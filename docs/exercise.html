@@ -4,21 +4,21 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1.1 Hello world | C++ for Rustaceans</title>
-  <meta name="description" content="1.1 Hello world | C++ for Rustaceans" />
+  <title>Exercise | C++ for Rustaceans</title>
+  <meta name="description" content="Exercise | C++ for Rustaceans" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1.1 Hello world | C++ for Rustaceans" />
+  <meta property="og:title" content="Exercise | C++ for Rustaceans" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="1.1 Hello world | C++ for Rustaceans" />
+  <meta property="og:description" content="Exercise | C++ for Rustaceans" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1.1 Hello world | C++ for Rustaceans" />
+  <meta name="twitter:title" content="Exercise | C++ for Rustaceans" />
   
-  <meta name="twitter:description" content="1.1 Hello world | C++ for Rustaceans" />
+  <meta name="twitter:description" content="Exercise | C++ for Rustaceans" />
   
 
 <meta name="author" content="Tianyi Shi" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="hello-c.html"/>
-<link rel="next" href="data-types.html"/>
+<link rel="prev" href="control-flow.html"/>
+<link rel="next" href="enumerations.html"/>
 <script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -191,57 +191,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="hello-world" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Hello world</h2>
-<p>This is a hello world program in C++:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="hello-world.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb1-2"><a href="hello-world.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main()</span>
-<span id="cb1-3"><a href="hello-world.html#cb1-3" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb1-4"><a href="hello-world.html#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>cout &lt;&lt; <span class="st">&quot;Hello C++!&quot;</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb1-5"><a href="hello-world.html#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb1-6"><a href="hello-world.html#cb1-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<p>Write the above code in <code>hello.cpp</code>, then you can compile it with
-<code>g++ hello.cpp -o hello</code> and run <code>./hello</code> (you can replace <code>g++</code> with <code>clang++</code>
-or any other compiler).</p>
-<p>A couple of things to note here:</p>
-<p>Every C++ executable (as opposed to library) must have a <code>main()</code> function that
-returns <code>int</code>. Returning <code>0</code> signifies that the program terminates without errors.
-The final <code>return 0;</code> statement can be omitted in the <code>main()</code> function.</p>
-<p><code>#include</code> is a preprocessor. We’ll meet more preprocessors in the future, for now
-just accept that they are “naive macros” that are “expanded” before the actual
-compilation.
-Here <code>#include</code> copies the content of file called <code>iostream</code>, which has tens of
-thousands lines, and pastes it here. Yes, it literally does so, and you can check
-this by running <code>g++ -E main.c</code>, which “expands” all preprocessor statements.</p>
-<p><code>iostream</code> contains definitions of functions and objects such as <code>std::cout</code> and
-<code>std::endl</code>, which are used for IO manipulations. <code>cout</code> stands for “character
-output,” and <code>endl</code> stands for “endline” (it appends <code>\n</code> and flushes the buffer).
-<code>&lt;&lt;</code> is the bitwise left shift operator, and the designers of C++ decided that
-overloading bitwise shift operators for <code>cout</code> and <code>cin</code> can make C++ look fancy
-from the beginning. That’s why we need to learn yet another special syntax.</p>
-<p><code>iostream</code> also introduces another function into scope, the C-compatible <code>printf</code> into scope,
-which can also be used to print “Hello world.”</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="hello-world.html#cb2-1" aria-hidden="true" tabindex="-1"></a>printf(<span class="st">&quot;Hello from printf</span><span class="sc">\n</span><span class="st">&quot;</span>);</span></code></pre></div>
-<p>Now you might begin to wonder, why isn’t <code>std::cout</code> called <code>std::iostream::cout</code>,
-and why <code>printf</code> can be called without any prefix. This is because in C++ filenames
-have no relationships to <code>namespace</code>s by default. <code>namespace</code> is similar to Rust’s <code>mod</code>,
-but more flexible. In this case, the <code>iostream</code> file contains something conceptually like this:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="hello-world.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> printf(...);</span>
-<span id="cb3-2"><a href="hello-world.html#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="hello-world.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">namespace</span> std {</span>
-<span id="cb3-4"><a href="hello-world.html#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> cout {}</span>
-<span id="cb3-5"><a href="hello-world.html#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> endl {}</span>
-<span id="cb3-6"><a href="hello-world.html#cb3-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<p><code>printf</code> isn’t placed inside <code>std</code> because it is a heritage from C. Many other C functions
-are also available in C++, and they can be distinguished by the absence of the <code>std::</code> prefix.</p>
+<div id="exercise" class="section level2 unnumbered">
+<h2>Exercise</h2>
+<ol style="list-style-type: decimal">
+<li><strong>Pointers and references.</strong></li>
+</ol>
+<div class="sourceCode" id="cb49"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb49-1"><a href="exercise.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> x = <span class="dv">5</span>;</span>
+<span id="cb49-2"><a href="exercise.html#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> y = <span class="dv">10</span>;</span>
+<span id="cb49-3"><a href="exercise.html#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span>* px = &amp;x;</span>
+<span id="cb49-4"><a href="exercise.html#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span>* py = &amp;y;</span>
+<span id="cb49-5"><a href="exercise.html#cb49-5" aria-hidden="true" tabindex="-1"></a>px = py;</span>
+<span id="cb49-6"><a href="exercise.html#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="co">// What are the values of x, y, *px and *py now?</span></span>
+<span id="cb49-7"><a href="exercise.html#cb49-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-8"><a href="exercise.html#cb49-8" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> i = <span class="dv">5</span>;</span>
+<span id="cb49-9"><a href="exercise.html#cb49-9" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> j = <span class="dv">10</span>;</span>
+<span id="cb49-10"><a href="exercise.html#cb49-10" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span>&amp; ri = i;</span>
+<span id="cb49-11"><a href="exercise.html#cb49-11" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span>&amp; rj = j;</span>
+<span id="cb49-12"><a href="exercise.html#cb49-12" aria-hidden="true" tabindex="-1"></a>ri = rj;</span>
+<span id="cb49-13"><a href="exercise.html#cb49-13" aria-hidden="true" tabindex="-1"></a><span class="co">// What are the values of i, j, ri and rj now?</span></span>
+<span id="cb49-14"><a href="exercise.html#cb49-14" aria-hidden="true" tabindex="-1"></a><span class="co">// Hint: a reference cannot be re-assigned. What&#39;s the last line doing?</span></span></code></pre></div>
+
 </div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="hello-c.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="data-types.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="control-flow.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="enumerations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -4,21 +4,21 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1.1 Hello world | C++ for Rustaceans</title>
-  <meta name="description" content="1.1 Hello world | C++ for Rustaceans" />
+  <title>2.1 The Plain enum | C++ for Rustaceans</title>
+  <meta name="description" content="2.1 The Plain enum | C++ for Rustaceans" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1.1 Hello world | C++ for Rustaceans" />
+  <meta property="og:title" content="2.1 The Plain enum | C++ for Rustaceans" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="1.1 Hello world | C++ for Rustaceans" />
+  <meta property="og:description" content="2.1 The Plain enum | C++ for Rustaceans" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1.1 Hello world | C++ for Rustaceans" />
+  <meta name="twitter:title" content="2.1 The Plain enum | C++ for Rustaceans" />
   
-  <meta name="twitter:description" content="1.1 Hello world | C++ for Rustaceans" />
+  <meta name="twitter:description" content="2.1 The Plain enum | C++ for Rustaceans" />
   
 
 <meta name="author" content="Tianyi Shi" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="hello-c.html"/>
-<link rel="next" href="data-types.html"/>
+<link rel="prev" href="enumerations.html"/>
+
 <script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -191,57 +191,89 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="hello-world" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Hello world</h2>
-<p>This is a hello world program in C++:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="hello-world.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb1-2"><a href="hello-world.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main()</span>
-<span id="cb1-3"><a href="hello-world.html#cb1-3" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb1-4"><a href="hello-world.html#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>cout &lt;&lt; <span class="st">&quot;Hello C++!&quot;</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb1-5"><a href="hello-world.html#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb1-6"><a href="hello-world.html#cb1-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<p>Write the above code in <code>hello.cpp</code>, then you can compile it with
-<code>g++ hello.cpp -o hello</code> and run <code>./hello</code> (you can replace <code>g++</code> with <code>clang++</code>
-or any other compiler).</p>
-<p>A couple of things to note here:</p>
-<p>Every C++ executable (as opposed to library) must have a <code>main()</code> function that
-returns <code>int</code>. Returning <code>0</code> signifies that the program terminates without errors.
-The final <code>return 0;</code> statement can be omitted in the <code>main()</code> function.</p>
-<p><code>#include</code> is a preprocessor. We’ll meet more preprocessors in the future, for now
-just accept that they are “naive macros” that are “expanded” before the actual
-compilation.
-Here <code>#include</code> copies the content of file called <code>iostream</code>, which has tens of
-thousands lines, and pastes it here. Yes, it literally does so, and you can check
-this by running <code>g++ -E main.c</code>, which “expands” all preprocessor statements.</p>
-<p><code>iostream</code> contains definitions of functions and objects such as <code>std::cout</code> and
-<code>std::endl</code>, which are used for IO manipulations. <code>cout</code> stands for “character
-output,” and <code>endl</code> stands for “endline” (it appends <code>\n</code> and flushes the buffer).
-<code>&lt;&lt;</code> is the bitwise left shift operator, and the designers of C++ decided that
-overloading bitwise shift operators for <code>cout</code> and <code>cin</code> can make C++ look fancy
-from the beginning. That’s why we need to learn yet another special syntax.</p>
-<p><code>iostream</code> also introduces another function into scope, the C-compatible <code>printf</code> into scope,
-which can also be used to print “Hello world.”</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="hello-world.html#cb2-1" aria-hidden="true" tabindex="-1"></a>printf(<span class="st">&quot;Hello from printf</span><span class="sc">\n</span><span class="st">&quot;</span>);</span></code></pre></div>
-<p>Now you might begin to wonder, why isn’t <code>std::cout</code> called <code>std::iostream::cout</code>,
-and why <code>printf</code> can be called without any prefix. This is because in C++ filenames
-have no relationships to <code>namespace</code>s by default. <code>namespace</code> is similar to Rust’s <code>mod</code>,
-but more flexible. In this case, the <code>iostream</code> file contains something conceptually like this:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="hello-world.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> printf(...);</span>
-<span id="cb3-2"><a href="hello-world.html#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="hello-world.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">namespace</span> std {</span>
-<span id="cb3-4"><a href="hello-world.html#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> cout {}</span>
-<span id="cb3-5"><a href="hello-world.html#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> endl {}</span>
-<span id="cb3-6"><a href="hello-world.html#cb3-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<p><code>printf</code> isn’t placed inside <code>std</code> because it is a heritage from C. Many other C functions
-are also available in C++, and they can be distinguished by the absence of the <code>std::</code> prefix.</p>
+<div id="the-plain-enum" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> The Plain <code>enum</code></h2>
+<div id="defining-an-enum" class="section level3" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Defining an Enum</h3>
+<p>The syntax for defining an <code>enum</code> in C++ is similar to Rust. In addition, like in Rust, enum
+variants are represented as integers at the low level, and by default the value starts from 0.</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb50-1"><a href="the-plain-enum.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="kw">enum</span> LogLevel</span>
+<span id="cb50-2"><a href="the-plain-enum.html#cb50-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb50-3"><a href="the-plain-enum.html#cb50-3" aria-hidden="true" tabindex="-1"></a>    Debug,   <span class="co">// 0</span></span>
+<span id="cb50-4"><a href="the-plain-enum.html#cb50-4" aria-hidden="true" tabindex="-1"></a>    Info,    <span class="co">// 1</span></span>
+<span id="cb50-5"><a href="the-plain-enum.html#cb50-5" aria-hidden="true" tabindex="-1"></a>    Warning, <span class="co">// 2</span></span>
+<span id="cb50-6"><a href="the-plain-enum.html#cb50-6" aria-hidden="true" tabindex="-1"></a>    Error    <span class="co">// 3</span></span>
+<span id="cb50-7"><a href="the-plain-enum.html#cb50-7" aria-hidden="true" tabindex="-1"></a>};</span></code></pre></div>
+<p>You can also manually assign values to the variants (also valid in Rust):</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb51-1"><a href="the-plain-enum.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="kw">enum</span> LogLevel</span>
+<span id="cb51-2"><a href="the-plain-enum.html#cb51-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb51-3"><a href="the-plain-enum.html#cb51-3" aria-hidden="true" tabindex="-1"></a>    Debug   = <span class="bn">0x12</span>,</span>
+<span id="cb51-4"><a href="the-plain-enum.html#cb51-4" aria-hidden="true" tabindex="-1"></a>    Info    = <span class="bn">0xd1</span>,</span>
+<span id="cb51-5"><a href="the-plain-enum.html#cb51-5" aria-hidden="true" tabindex="-1"></a>    Warning = <span class="bn">0x7c</span>,</span>
+<span id="cb51-6"><a href="the-plain-enum.html#cb51-6" aria-hidden="true" tabindex="-1"></a>    Error   = <span class="bn">0x0a</span>,</span>
+<span id="cb51-7"><a href="the-plain-enum.html#cb51-7" aria-hidden="true" tabindex="-1"></a>};</span></code></pre></div>
+<p>Unlike Rust, C++ by default uses the <code>int</code> type to represent the variants, even though most of the
+time the number of variants won’t exceed 256. To use a more compact representation, you can do:</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb52-1"><a href="the-plain-enum.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="kw">enum</span> MyEnum : <span class="dt">uint8_t</span></span>
+<span id="cb52-2"><a href="the-plain-enum.html#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="co">// or `enum Foo : char` (remember that `char` is an integer type)</span></span>
+<span id="cb52-3"><a href="the-plain-enum.html#cb52-3" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb52-4"><a href="the-plain-enum.html#cb52-4" aria-hidden="true" tabindex="-1"></a>    Foo,</span>
+<span id="cb52-5"><a href="the-plain-enum.html#cb52-5" aria-hidden="true" tabindex="-1"></a>    Bar,</span>
+<span id="cb52-6"><a href="the-plain-enum.html#cb52-6" aria-hidden="true" tabindex="-1"></a>};</span></code></pre></div>
 </div>
+<div id="using-an-enum" class="section level3" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Using an Enum</h3>
+<p>Unlike Rust, a C++ <code>enum</code> does not create a namespace, which means you cannot write <code>LogLevel::Info</code>
+to refer to the <code>Info</code> variant of the <code>LogLevel</code> enum defined in the prevous subsection. You should
+write <code>Info</code> directly.</p>
+<p>A enum is implicitly converted to an integer. Which means it can be directly compared to an integer
+(but dont’t actually do this) and can be pushed to <code>std::cout</code> directly.</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb53-1"><a href="the-plain-enum.html#cb53-1" aria-hidden="true" tabindex="-1"></a>LogLevel lvl = Info;</span>
+<span id="cb53-2"><a href="the-plain-enum.html#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="ot">assert</span>(Info == <span class="dv">1</span>);</span>
+<span id="cb53-3"><a href="the-plain-enum.html#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="ot">assert</span>(Warning &gt; <span class="dv">1</span>);</span>
+<span id="cb53-4"><a href="the-plain-enum.html#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="ot">assert</span>(Error &gt; Debug);</span>
+<span id="cb53-5"><a href="the-plain-enum.html#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>cout &lt;&lt; lvl &lt;&lt; <span class="bu">std::</span>endl;</span></code></pre></div>
+<p>However, an integer cannot be converted implicitly into an enum, but can be done so explicitly:</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb54-1"><a href="the-plain-enum.html#cb54-1" aria-hidden="true" tabindex="-1"></a>LogLevel lvl = <span class="dv">2</span>;           <span class="co">// won&#39;t work</span></span>
+<span id="cb54-2"><a href="the-plain-enum.html#cb54-2" aria-hidden="true" tabindex="-1"></a>LogLevel lvl = (LogLevel)<span class="dv">2</span>; <span class="co">// OK, but don&#39;t actually do this</span></span></code></pre></div>
+<p>You can reassign the identifier <code>Info</code> to another value</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb55-1"><a href="the-plain-enum.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> Info = <span class="dv">999</span>;</span></code></pre></div>
+<p>…but can you set another <code>LogLevel</code> to <code>Info</code>?</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb56-1"><a href="the-plain-enum.html#cb56-1" aria-hidden="true" tabindex="-1"></a>LogLevel m = Info; <span class="co">// Error!</span></span></code></pre></div>
+<p>No you can’t. C++ generally forbids re-defining variables, but in the case of
+enums you are allowed to re-bind a enum variant identifier (<code>Info</code>) to another
+value (<code>999</code>), then you just can’t use that enum variant.</p>
+<p>To avoid this and other kinds of conflicts, it had been a common practice to
+enum variants with part of the enum name. For example, the <code>LogLevel</code> enum
+may be rewritten as:</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb57-1"><a href="the-plain-enum.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="kw">enum</span> LogLevel</span>
+<span id="cb57-2"><a href="the-plain-enum.html#cb57-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb57-3"><a href="the-plain-enum.html#cb57-3" aria-hidden="true" tabindex="-1"></a>    LevelDebug,</span>
+<span id="cb57-4"><a href="the-plain-enum.html#cb57-4" aria-hidden="true" tabindex="-1"></a>    LevelInfo,</span>
+<span id="cb57-5"><a href="the-plain-enum.html#cb57-5" aria-hidden="true" tabindex="-1"></a>    LevelWarning,</span>
+<span id="cb57-6"><a href="the-plain-enum.html#cb57-6" aria-hidden="true" tabindex="-1"></a>    LevelError</span>
+<span id="cb57-7"><a href="the-plain-enum.html#cb57-7" aria-hidden="true" tabindex="-1"></a>};</span></code></pre></div>
+<p>…which violates the DRY rule in a bad way. To solve this problem, <code>enum class</code> was introduced
+in C++11, and we’ll learn about it in the next section.</p>
+
+</div>
+</div>
+<!-- </div> -->
+
+
+
+
+
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="hello-c.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="data-types.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="enumerations.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -272,7 +304,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/tianyishi2001/cpp4r/tree/docs/book/hello.Rmd",
+"link": "https://github.com/tianyishi2001/cpp4r/tree/docs/book/enum.Rmd",
 "text": "Edit"
 },
 "history": {
